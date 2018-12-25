@@ -18,3 +18,8 @@ RUN apt-get install unzip -y && \
 RUN git clone https://github.com/vxe/home.git && rsync -avz --exclude '.git' /root/home/ /root
 WORKDIR /root/boot
 RUN ansible-playbook -l localhost /root/boot/home.yml --verbose
+ENTRYPOINT [ "bash" ]
+RUN apt-get -y install emacs25-nox rtags
+RUN git clone https://github.com/vxe/home.git && rsync -avz --exclude '.git' /root/home/ /home/app && echo for real
+RUN rm -rf home && git clone https://github.com/vxe/HOME.git && rsync -avz --exclude '.git' ./HOME/ /home/app && echo for real
+RUN emacs --debug-init -nw --batch -l ~/.emacs.d/init.el --eval="(+ 2 3)" 
